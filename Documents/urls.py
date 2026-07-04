@@ -16,7 +16,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.conf import settings
+from django.conf.urls.static import static
+from upload.views import uploadFileView, uploadSuccessView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('upload/', uploadFileView,name='upload'),
+    path('success/', uploadSuccessView,name='upload_success'),
 ]
+
+if settings.DEBUG:
+    urlpatterns+= static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
